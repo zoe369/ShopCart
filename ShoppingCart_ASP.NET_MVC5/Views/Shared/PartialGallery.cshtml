@@ -1,0 +1,111 @@
+﻿
+@using ShoppingCart_ASP.NET_MVC5.Models
+@model ShoppingCart_ASP.NET_MVC5.Models.CarModel
+
+<style>
+
+    .row.display-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .row.display-flex > [class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+</style>
+<div class="container-fluid" style="margin-top:80px">
+    <div class="row">
+        <div class="col-sm-12" style="text-align:center;">
+            <i class="glyphicon glyphicon-retweet"></i> @Html.ActionLink("Go Back", "Home", "Home", null, null) &nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+<br />
+<div class="container-fluid">
+    <div class="row display-flex">
+        @{ if ((List<CarModel>)ViewData["partial"] != null)
+                        {
+                            foreach (var product in (List<CarModel>)ViewData["partial"])
+                            {
+            <div class="col-sm-4">
+                <table class="table table-bordered" style="border-color:transparent; box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.19);border-top-left-radius:30px;border-top-right-radius:30px;">
+
+                    <tr style="text-align:center">
+                        @*<td><img src="~/images/@product.pro_image" /></td>*@
+                        <td colspan="2" style="border-color:transparent;">
+                            <img src="~/images/@product.Car_image" style="width:40%" /><br />
+                            <span style="color:#337ab7">@product.Car_marca</span><br />
+                            <span style="color:indianred">Description : </span>@product.Car_model<br />
+                        </td>
+                    </tr>
+                    <tr style="text-align:center;color:green;">
+                        <td style="border:1px solid white;">
+                            <a href="#" data-toggle="modal" data-target="#MyModal"> More Info</a>
+                            @*<button style="background-color:lavender;" class="btn btn-outline-success" onclick="incrementCookie(@product.car_id)" name="compare"><span style="color:indianred">Price :</span> $@product.car_price.00 &nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-shopping-cart"></i></button>*@
+                            <div class="modal" id="MyModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Descriere</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Marca: @product.Car_marca</p>
+                                            <p>Model: @product.Car_model</p>
+                                            <p>Pret: @product.Car_price</p>
+                                            <p>An fabricatie: @product.Car_an</p>
+                                            <p>Kilometraj: @product.Car_km</p>
+                                            <p>Culoare:@product.Car_culoare</p>
+                                            <p>Cutie: @product.Car_cutie</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </div> }
+
+                        } }
+
+
+
+    </div>
+</div>
+
+<script>
+    var a = 0;
+    function increment() {
+        a = a + 1;
+        document.getElementById("count").innerHTML = a;
+
+    }</script>
+<script type="text/javascript">
+    function incrementCookie(pro_id) {
+
+        if (getCookie(pro_id) == "") {
+            document.cookie = pro_id + "=" + 1 + "; Path=/";
+        }
+        else {
+            var qty = parseInt(getCookie(pro_id));
+            document.cookie = pro_id + "=" + (1 + qty) + "; Path=/";
+        }
+    }
+
+    function getCookie(cname) {
+
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }</script>
