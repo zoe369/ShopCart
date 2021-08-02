@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 
-namespace ShoppingCart_ASP.NET_MVC5.Controllers
+namespace ShoppingCart_ASP.NET_MVC5.Dao
 {
     public class ProductDetails
     {
